@@ -7,7 +7,7 @@ import CountriesList from './components/CountriesList'
 const App = () => {
 	const [countries, setCountries] = useState([])
 	const [name, setName] = useState('')
-	const [isShow, setIsShow] = useState(false)
+	const [countryToShow, setCountryToShow] = useState(null)
 
 	useEffect(() => {
 		axios
@@ -21,8 +21,7 @@ const App = () => {
 	}
 
 	const showInfo = country => {
-		setIsShow(true)
-		return <Country country={country} />
+		setCountryToShow(country)
 	}
 
 	const filteredCountries = countries.filter(country =>
@@ -33,7 +32,13 @@ const App = () => {
 		if (filteredCountries.length === 1) {
 			return <Country country={filteredCountries[0]} />
 		} else if (filteredCountries.length <= 10) {
-			return <CountriesList countries={filteredCountries} />
+			return (
+				<CountriesList
+					countries={filteredCountries}
+					countryToShow={countryToShow}
+					showInfo={showInfo}
+				/>
+			)
 		} else {
 			return <p>Too many results, please more specific</p>
 		}
