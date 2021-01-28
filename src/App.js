@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Filter from './components/Filter'
+import Country from './components/Country'
 
 const App = () => {
 	const [countries, setCountries] = useState([])
@@ -23,23 +24,7 @@ const App = () => {
 
 	const display = () => {
 		if (filteredCountries.length === 1) {
-			return (
-				<div>
-					<h3>{filteredCountries[0].name}</h3>
-					<p>Capital: {filteredCountries[0].capital}</p>
-					<p>Population: {filteredCountries[0].population}</p>
-					<strong>languages</strong>
-					{filteredCountries[0].languages.map(l => (
-						<p key={l.name}>{l.name}</p>
-					))}
-					<img
-						src={filteredCountries[0].flag}
-						alt='nations flag'
-						height='80px'
-						width='120px'
-					/>
-				</div>
-			)
+			return <Country country={filteredCountries[0]} />
 		} else if (filteredCountries.length <= 10) {
 			return filteredCountries.map(c => <p key={c.name}>{c.name}</p>)
 		} else {
