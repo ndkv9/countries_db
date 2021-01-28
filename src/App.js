@@ -18,6 +18,7 @@ const App = () => {
 
 	const handleNameChange = e => {
 		setName(e.target.value)
+		setCountryToShow(null)
 	}
 
 	const showInfo = country => {
@@ -29,7 +30,9 @@ const App = () => {
 	)
 
 	const display = () => {
-		if (filteredCountries.length === 1) {
+		if (filteredCountries.length === 0) {
+			return <strong>There is no result</strong>
+		} else if (filteredCountries.length === 1) {
 			return <Country country={filteredCountries[0]} />
 		} else if (filteredCountries.length <= 10) {
 			return (
